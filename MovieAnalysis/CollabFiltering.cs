@@ -7,57 +7,33 @@ using System.Threading.Tasks;
 
 namespace MovieAnalysis
 {
-    //User based CF, the alternative is Item based, does not fit very well, we dont know much about the item? pr thats what i think
-    //user based: compute how similar to user A user B is, and use that to calculate what user A would rate movie XY (a movie user A has not watched before)
-    //To build item-based, we need info about the item, which we do not have much of (only a name)
-
-        
-
-    class Program
+    class CollabFiltering
     {
+        private List<List<Review>> trainingDataList;
+        private List<List<Review>> testDataList;
 
 
-        static void Main(string[] args)
+        public CollabFiltering()
         {
-            CollabFiltering cf = new CollabFiltering();
-
-
+            trainingDataList = new List<List<Review>>();
+            testDataList = new List<List<Review>>();
+            LoadData();
         }
 
 
 
-
-        
-
-
-        public static void ConstructMatrix(List<Review> dataset, int minFactors, int maxFactors)
+        public void LoadData()
         {
-            /* 
-             • 𝑈𝑚: total number of observed ratings for movie 𝑚
-             • 𝑀𝑢: total number of observed ratings for user 𝑢
-             • 𝑁: total number of observed movie-user pairs.
-             * Rmu: rating (movie, user)
-             
-             
-             */
-
-
-
-
-
-
-        }
-
-        //i dont know what this is for
-        public static List<int> SubtractUserAndMovieFromDataset(List<Review> dataset)
-        {
-            List<int> result = new List<int>();
-            foreach (var review in dataset)
+            string dataFolder = "ml-100k";
+            for (int i = 0; i < 5; i++)
             {
-                result.Add(review.Score);
+                string trainingPath = dataFolder + "//u" + (i+1) + ".base";
+                string testPath = dataFolder + "//u" + (i+1) + ".test";
+                List<Review> trainingData = ReadDataFile(trainingPath);
+                List<Review> testData = ReadDataFile(testPath);
+                trainingDataList.Add(trainingData);
+                testDataList.Add(testData);
             }
-
-            return result;
         }
 
 
