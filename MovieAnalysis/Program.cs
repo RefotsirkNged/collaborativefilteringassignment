@@ -21,7 +21,7 @@ namespace MovieAnalysis
         {
             CollabFiltering cf = new CollabFiltering();
 
-
+            Console.ReadLine();
         }
 
 
